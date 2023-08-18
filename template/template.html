@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template 1</title>
+    <style>
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-Black.ttf")
+          format("truetype");
+        font-weight: 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-ExtraBold.ttf")
+          format("truetype");
+        font-weight: 800;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-Bold.ttf")
+          format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-SemiBold.ttf")
+          format("truetype");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-Medium.ttf")
+          format("truetype");
+        font-weight: 500;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-Regular.ttf")
+          format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-Light.ttf")
+          format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-ExtraLight.ttf")
+          format("truetype");
+        font-weight: 200;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("./Barlow_Condensed/BarlowCondensed-Thin.ttf")
+          format("truetype");
+        font-weight: 100;
+        font-style: normal;
+      }
+
+      @media print {
+        @page {
+          margin: 10mm 10mm 10mm 10mm;
+          font-family: "Barlow Condensed", sans-serif;
+        }
+      }
+      :root {
+        --primary: #e82323;
+      }
+      body {
+        font-family: "Barlow Condensed", sans-serif;
+        width: 100%;
+        max-width: 800px;
+        margin: auto;
+      }
+      h1 {
+        font-weight: 600;
+      }
+      main {
+        display: flex;
+      }
+      main section {
+        flex-grow: 1;
+      }
+      main aside {
+        flex-basis: 30%;
+      }
+      p {
+        margin-top: 0px;
+      }
+      #name {
+        font-weight: 700;
+        margin-bottom: 0px;
+      }
+      #caption {
+        font-weight: 500;
+        margin-top: 5px;
+      }
+      .sections {
+        margin-bottom: 20px;
+      }
+      .sections h3 {
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+      .sections ul {
+        margin-top: 5px;
+        list-style-type: none;
+        padding-left: 0px;
+      }
+      .sections ul li {
+        margin-bottom: 5px;
+      }
+      #address-wrapper .address,
+      #academic-wrapper .academy,
+      #experience-wrapper .experience {
+        margin-bottom: 10px;
+      }
+      #academic-wrapper .academy div:nth-child(1),
+      #experience-wrapper .experience div:nth-child(1) {
+        display: flex;
+        align-items: baseline;
+        gap: 5px;
+      }
+      #address-wrapper .subtitle,
+      #academic-wrapper .academy-name,
+      #experience-wrapper .establishment-name {
+        font-weight: 500;
+        margin: 0px;
+      }
+      #language-wrapper .content,
+      #address-wrapper .full-address {
+        font-weight: 400;
+        margin-top: 2px;
+      }
+      #academic-wrapper .education-level,
+      #experience-wrapper .designation {
+        font-weight: 300;
+        margin: 0px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1 id="name">Name</h1>
+      <p id="caption">Caption</p>
+      <main>
+        <section>
+          <div id="expectation-wrapper" class="sections">
+            <h3>Expectation</h3>
+            <p id="expectation">expactation</p>
+          </div>
+          <div id="experience-wrapper" class="sections">
+            <h3>Professional Journey</h3>
+          </div>
+          <div id="academic-wrapper" class="sections">
+            <h3>Academic Qualification</h3>
+          </div>
+        </section>
+        <aside>
+          <div id="contact-wrapper" class="sections">
+            <h3>Contact</h3>
+            <ul>
+              <li id="mobile-number">9818031042</li>
+              <li id="email">anthonyfinix@gmail.com</li>
+            </ul>
+          </div>
+          <div id="dob-wrapper" class="sections">
+            <h3>Date of Birth</h3>
+            <ul>
+              <li id="date-of-birth">Date Month Year</li>
+            </ul>
+          </div>
+          <div id="address-wrapper" class="sections">
+            <h3>Address</h3>
+            <div class="address">
+              <p class="subtitle">Current</p>
+              <p id="current-address" class="full-address">
+                Current Address Placeholder
+              </p>
+            </div>
+            <div class="address">
+              <p class="subtitle">Permanent</p>
+              <p id="permanent-address" class="full-address">
+                Permanent Address Placeholder
+              </p>
+            </div>
+          </div>
+
+          <div id="language-wrapper" class="sections">
+            <h3>Speaks</h3>
+            <p id="language" class="content">lanuages</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

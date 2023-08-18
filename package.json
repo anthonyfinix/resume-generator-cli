@@ -1,0 +1,17 @@
+{
+  "name": "resume_generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index-cmd"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "^0.1.0",
+    "inquirer": "^8.2.6",
+    "puppeteer": "^21.0.3"
+  }
+}

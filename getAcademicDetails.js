@@ -22,7 +22,6 @@ const getAcademicDetails = async (academicQualifications) => {
       message: "Academic Qualification",
       choices: menuOptions,
     });
-
     switch (academicQualificationAns.academicQualificationOption) {
       case menuOptions[0]:
         let academicDetails = await inquirer.prompt([

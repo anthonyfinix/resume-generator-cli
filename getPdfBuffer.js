@@ -9,17 +9,17 @@ async function getPdfBuffer(candidateDetails) {
   await page.evaluate((candidateDetails) => {
     const {
       basicDetails,
-      resumeSpecificData,
+      resumeSpecificDetails,
       experiences,
       academicQualifications,
     } = candidateDetails;
-    if (resumeSpecificData.caption) {
+    if (resumeSpecificDetails.caption) {
       const caption = document.querySelector("#caption");
-      caption.innerHTML = resumeSpecificData.caption;
+      caption.innerHTML = resumeSpecificDetails.caption;
     }
-    if (resumeSpecificData.expectation) {
+    if (resumeSpecificDetails.expectation) {
       const expectation = document.querySelector("#expectation");
-      expectation.innerHTML = resumeSpecificData.expectation;
+      expectation.innerHTML = resumeSpecificDetails.expectation;
     }
     if (basicDetails.candidateName) {
       const name = document.querySelector("#name");

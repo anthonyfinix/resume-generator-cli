@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const filePath = path.join(__dirname, "cache","cache.json");
+const filePath = path.join(__dirname, "cache", "cache.json");
 exports.saveCache = (data) => {
   fs.writeFile(filePath, JSON.stringify(data), (err) => {
     if (err) {
@@ -10,6 +10,8 @@ exports.saveCache = (data) => {
     }
   });
 };
-exports.getCache = () => {
-  return fs.promises.readFile(filePath);
+exports.getCache = async () => {
+  let cache = await fs.promises.readFile(filePath);
+  if (cache) return JSON.parse(cache);
+  if (!cache) return {};
 };

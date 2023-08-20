@@ -51,8 +51,9 @@ const basicDetailsPrompt = [
 ];
 exports.basicDetailsPrompt = basicDetailsPrompt;
 exports.updateBasicDetails = async (data, promptName) => {
+  let basicDetails = data;
   let prompts = [];
-  if (data && promptName) {
+  if (basicDetails && promptName) {
     prompts = basicDetailsPrompt.filter(
       (basicDetail) => basicDetail.name === promptName
     );
@@ -60,11 +61,10 @@ exports.updateBasicDetails = async (data, promptName) => {
     prompts = [...basicDetailsPrompt];
   }
   const answers = await inquirer.prompt(prompts);
-  if (data && promptName) {
-    data[promptName] = answers[promptName];
-    return;
+  if (basicDetails && promptName) {
+    basicDetails[promptName] = answers[promptName];
+    return basicDetails;
   } else {
-    Object.keys(answers).forEach((key) => (data[key] = answers[key]));
-    return;
+    return answers;
   }
 };

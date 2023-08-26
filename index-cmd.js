@@ -7,14 +7,15 @@ const {
   updateBasicDetails,
   basicDetailsPrompt,
 } = require("./updateBasicDetails");
-const getAcademicDetails = require("./getAcademicDetails");
-const getCareerDetails = require("./getCareerDetails");
+const { getAcademicDetails } = require("./getAcademicDetails");
+const { getCareerDetails } = require("./getCareerDetails");
 const {
   getResumeSpecificDetails,
   resumeSpecificPrompts,
 } = require("./getResumeSpecificDetails");
 const getPdfBuffer = require("./getPdfBuffer");
 const { getCache, saveCache } = require("./cacheCandidateData");
+const { arrayPrompt } = require("./arrayPrompt");
 
 let candidateData = {
   academicQualifications: [],
@@ -31,6 +32,7 @@ const mainOptions = [
   "Generate PDF",
   "Exit",
 ];
+const data = [];
 (async () => {
   try {
     candidateData = await getCache();
@@ -45,7 +47,6 @@ const mainOptions = [
     mainOptions.splice(1, 1);
     mainOptions.splice(1, 0, "Update Resume Specific Details");
   }
-
   while (!exitMainMenu) {
     let { answer } = await inquirer.prompt({
       type: "list",
@@ -92,7 +93,6 @@ const mainOptions = [
             resumeSpecificPrompts.map(({ message }) => message)
           ),
         });
-
         let selectedOptionName = resumeSpecificPrompts.reduce((str, curr) => {
           if (curr.message === specificDetailMessage) str = curr.name;
           return str;

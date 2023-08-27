@@ -5,7 +5,6 @@ exports.arrayPrompt = async ({
   message,
   data,
   choiceLabel,
-  addPrompt,
   choicePromptName,
 }) => {
   let exitPoint = false;
@@ -14,14 +13,13 @@ exports.arrayPrompt = async ({
       type: "list",
       name,
       message,
-      choices: [choiceLabel[0], choiceLabel[1], "Done"],
+      choices: [choiceLabel[0].label, choiceLabel[1].label, "Done"],
     });
     switch (answer[name]) {
-      case choiceLabel[0]:
-        let answer = await inquirer.prompt(addPrompt);
-        data.push(answer);
+      case choiceLabel[0].label:
+        data.push(await choiceLabel[0].cb());
         break;
-      case choiceLabel[1]:
+      case choiceLabel[1].label:
         let { remove } = await inquirer.prompt({
           type: "list",
           name: "remove",

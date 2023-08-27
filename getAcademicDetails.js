@@ -1,4 +1,5 @@
 const { arrayPrompt } = require("./arrayPrompt");
+const inquirer = require("inquirer");
 const educationLevel = [
   "Primary Education",
   "Secondary Education",
@@ -42,10 +43,12 @@ exports.getAcademicDetails = async (academicQualifications) => {
     message: "Academic Qualification",
     data: academicQualifications,
     choiceLabel: [
-      "Add Academic Qualification",
-      "Remove Academic Qualification",
+      {
+        label: "Add Academic Qualification",
+        cb: () => inquirer.prompt(academicPrompts),
+      },
+      { label: "Remove Academic Qualification" },
     ],
-    addPrompt: academicPrompts,
     choicePromptName: "academyName",
   });
 };

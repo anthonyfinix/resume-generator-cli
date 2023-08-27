@@ -1,5 +1,6 @@
 const getMonthNames = require("./getMonthNames");
 const { arrayPrompt } = require("./arrayPrompt");
+const inquirer = require("inquirer");
 const carrerPrompts = [
   {
     type: "list",
@@ -79,13 +80,17 @@ const carrerPrompts = [
   },
 ];
 exports.getCareerDetails = async (experiences) => {
-
   await arrayPrompt({
     name: "careerMenuOption",
     message: "Enter points for the carrer",
     data: experiences,
-    choiceLabel: ["Add Experience", "Remove Experience"],
-    addPrompt: carrerPrompts,
+    choiceLabel: [
+      {
+        label: "Add Experience",
+        cb: () => inquirer.prompt(carrerPrompts),
+      },
+      { label: "Remove Experience" },
+    ],
     choicePromptName: "establishmentName",
   });
 };

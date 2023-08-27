@@ -63,21 +63,6 @@ const carrerPrompts = [
     message: "Please provide the ending day of the tenure",
     choices: getMonthNames(),
   },
-  {
-    type: "input",
-    name: "point1",
-    message: "Please enter 1st point about your work & responsibilities",
-  },
-  {
-    type: "input",
-    name: "point2",
-    message: "Please enter 2nd point about your work & responsibilities",
-  },
-  {
-    type: "input",
-    name: "point3",
-    message: "Please enter 3rd point about your work & responsibilities",
-  },
 ];
 exports.getCareerDetails = async (experiences) => {
   await arrayPrompt({
@@ -87,7 +72,33 @@ exports.getCareerDetails = async (experiences) => {
     choiceLabel: [
       {
         label: "Add Experience",
-        cb: () => inquirer.prompt(carrerPrompts),
+        cb: async () => {
+          const points = [];
+          const singleCompanyData = await inquirer.prompt(carrerPrompts);
+          await arrayPrompt({
+            name: "points",
+            message: "Enter a statement about your work",
+            data: points,
+            choiceLabel: [
+              {
+                label: "Add Point",
+                cb: async () => {
+                  const { point } = await inquirer.prompt({
+                    type: "input",
+                    name: "point",
+                    message: "enter the point",
+                  });
+                  return point;
+                },
+              },
+              {
+                label: "Remove Point",
+              },
+            ],
+            choicePromptName: "point",
+          });
+          return { ...singleCompanyData, points };
+        },
       },
       { label: "Remove Experience" },
     ],

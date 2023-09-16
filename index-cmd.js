@@ -9,13 +9,9 @@ const {
 } = require("./updateBasicDetails");
 const { getAcademicDetails } = require("./getAcademicDetails");
 const { getCareerDetails } = require("./getCareerDetails");
-const {
-  getResumeSpecificDetails,
-  resumeSpecificPrompts,
-} = require("./getResumeSpecificDetails");
+const { getResumeSpecificDetails } = require("./getResumeSpecificDetails");
 const getPdfBuffer = require("./getPdfBuffer");
 const { getCache, saveCache } = require("./cacheCandidateData");
-const { arrayPrompt } = require("./arrayPrompt");
 
 let candidateData = {
   academicQualifications: [],
@@ -29,6 +25,7 @@ const mainOptions = [
   "Add or Remove Academic Details",
   "Add or Remove Career Details",
   "Cache Data",
+  "Display Candidate Data",
   "Generate PDF",
   "Exit",
 ];
@@ -42,10 +39,6 @@ const mainOptions = [
     mainOptions.splice(0, 1);
     mainOptions.splice(0, 0, "Update Basic Details");
   }
-  if (candidateData.resumeSpecificDetails) {
-    mainOptions.splice(1, 1);
-    mainOptions.splice(1, 0, "Update Resume Specific Details");
-  }
   while (!exitMainMenu) {
     let { answer } = await inquirer.prompt({
       type: "list",
@@ -56,6 +49,10 @@ const mainOptions = [
     switch (answer) {
       case "Add Basic Details":
         candidateData.basicDetails = await updateBasicDetails();
+        mainOptions.splice(0, 1);
+        mainOptions.splice(0, 0, "Update Basic Details");
+        saveCache(candidateData);
+        break;
       case "Update Basic Details":
         const { basicUserDetailsUpdatedValues } = await inquirer.prompt({
           type: "list",
@@ -76,34 +73,37 @@ const mainOptions = [
         break;
       case "Add or Remove Academic Details":
         await getAcademicDetails(candidateData.academicQualifications);
+        saveCache(candidateData);
         break;
       case "Add or Remove Career Details":
         await getCareerDetails(candidateData.experiences);
+        saveCache(candidateData);
         break;
       case "Add Resume Specific Details":
         candidateData.resumeSpecificDetails = await getResumeSpecificDetails();
-        break;
-      case "Update Resume Specific Details":
-        const { specificDetailMessage } = await inquirer.prompt({
-          type: "list",
-          name: "specificDetailMessage",
-          message: "What value would you like to update",
-          choices: Object.values(
-            resumeSpecificPrompts.map(({ message }) => message)
-          ),
-        });
-        let selectedOptionName = resumeSpecificPrompts.reduce((str, curr) => {
-          if (curr.message === specificDetailMessage) str = curr.name;
-          return str;
-        }, "");
-        let updatedResumeSpecificDetails = await getResumeSpecificDetails(
-          candidateData.resumeSpecificDetails,
-          selectedOptionName
-        );
-        candidateData.resumeSpecificDetails = updatedResumeSpecificDetails;
+        saveCache(candidateData);
         break;
       case "Cache Data":
         saveCache(candidateData);
+        break;
+      case "Display Candidate Data":
+        console.warn("Basic Details");
+        console.table(candidateData.basicDetails);
+        console.warn("Resume Specific Details");
+        console.table(candidateData.resumeSpecificDetails);
+        console.warn("Experiences");
+        if (candidateData.experiences?.length) {
+          candidateData.experiences.forEach((exp) => {
+            const { points, ...rest } = exp;
+            console.table(rest);
+          });
+        }
+        console.warn("Academic Details");
+        if (candidateData.academicQualifications?.length) {
+          candidateData.academicQualifications.forEach((exp) =>
+            console.table(exp)
+          );
+        }
         break;
       case "Generate PDF":
         try {

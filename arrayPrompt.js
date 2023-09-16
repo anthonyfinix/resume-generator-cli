@@ -24,7 +24,16 @@ exports.arrayPrompt = async ({
           type: "list",
           name: "remove",
           message: "Select the item to remove",
-          choices: [...data.map((item) => item[choicePromptName]), "cancel"],
+          choices: [
+            ...data.map((item) => {
+              if (item?.[choicePromptName]) {
+                return item[choicePromptName];
+              } else {
+                return item;
+              }
+            }),
+            "cancel",
+          ],
         });
         if (remove === "cancel") break;
         const index = data.findIndex((el) => el.choicePromptName === remove);

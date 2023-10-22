@@ -58,9 +58,7 @@ async function getPdfBuffer(candidateDetails) {
       experiences.forEach(
         ({
           establishmentName,
-          point1,
-          point2,
-          point3,
+          points,
           tenureStartingYear,
           tenureEndingYear,
         }) => {
@@ -77,9 +75,10 @@ async function getPdfBuffer(candidateDetails) {
                   </div>
                 </div>
                 <ul>
-                  <li>${point1}</li>
-                  <li>${point2}</li>
-                  <li>${point3}</li>
+                  ${points.reduce(
+                    (acc, curr) => (acc += `<li>${curr}</li>`),
+                    ""
+                  )}
                 </ul>
               </div>`,
               "text/html"
@@ -94,7 +93,6 @@ async function getPdfBuffer(candidateDetails) {
         ({
           educationLevel,
           academyName,
-          academyAddress,
           academyStartingYear,
           academyEndingYear,
         }) => {
@@ -120,7 +118,7 @@ async function getPdfBuffer(candidateDetails) {
     return true;
   }, candidateDetails);
   const pdf = await page.pdf({ format: "A4" });
-  await browser.close();
+  // await browser.close();
   return pdf;
 }
 module.exports = getPdfBuffer;
